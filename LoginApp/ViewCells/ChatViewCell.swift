@@ -24,7 +24,7 @@ class ChatViewCell: UITableViewCell {
     
     func render(chat: Chat) {
         titleLabel.text = chat.name
-        titleLabel.sizeToFit()
+        //titleLabel.sizeToFit()
         chat.users { users in
             let users = users.filter { user in
                 user.id != Auth.auth().currentUser?.uid
@@ -32,6 +32,19 @@ class ChatViewCell: UITableViewCell {
             let profileImage = users.first?.profileImageUrl
             if profileImage != nil && !profileImage!.isEmpty {
                 self.profileImageView.loadFrom(url: profileImage!)
+            } else {
+                self.profileImageView.image = UIImage(systemName: "person.circle.fill")
+            }
+        }
+        
+        chat.lastMessage { message in
+            var lastMessageText = ""
+            if message != nil {
+                lastMessageText = message!.message
+            }
+            
+            DispatchQueue.main.async {
+                self.subtitleLabel.text = lastMessageText
             }
         }
     }

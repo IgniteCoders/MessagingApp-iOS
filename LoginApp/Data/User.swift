@@ -18,6 +18,10 @@ struct User: Codable {
     var provider: LoginProvider
     var profileImageUrl: String?
     
+    func fullName() -> String {
+        return "\(firstName) \(lastName)"
+    }
+    
     init(id: String, username: String, firstName: String, lastName: String, gender: Gender, birthday: Date?, provider: LoginProvider, profileImageUrl: String?) {
         self.id = id
         self.username = username

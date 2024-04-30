@@ -92,16 +92,26 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: Segues & Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            print("No chat selected")
-            return
+        if (segue.identifier == "newChat") {
+            let navigationViewController: UINavigationController = segue.destination as! UINavigationController
+            let viewController: NewChatViewController = navigationViewController.topViewController as! NewChatViewController
+            
+            viewController.didSelectUser = { user in
+                print(user)
+                
+                
+            }
+        } else {
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                print("No chat selected")
+                return
+            }
+            
+            let chat = list[indexPath.row]
+            
+            let viewController: ChatViewController = segue.destination as! ChatViewController
+            
+            viewController.chat = chat
         }
-        
-        let chat = list[indexPath.row]
-        
-        let viewController: ChatViewController = segue.destination as! ChatViewController
-        
-        viewController.chat = chat
     }
 }

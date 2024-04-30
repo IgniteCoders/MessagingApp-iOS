@@ -40,18 +40,35 @@ struct Chat: Codable {
     }
     
     func messages(completion: @escaping ([Message]) -> Void) {
+        let db = Firestore.firestore()
         Task {
             var messages = [Message]()
             do {
-                for docRef in messagesDocRef {
-                    let message = try await docRef.getDocument(as: Message.self)
+                let querySnapshot = try await db.collection("Messages").whereField("chatId", isEqualTo: self.id).order(by: "date").getDocuments()
+                
+                for document in querySnapshot.documents {
+                    let message = try document.data(as: Message.self)
                     messages.append(message)
-                    completion(messages)
                 }
+                
+                completion(messages)
             } catch {
-                print("Error reading users: \(error)")
+                print("Error reading messages: \(error)")
             }
         }
+    }
+    
+    func lastMessage(completion: @escaping (Message?) -> Void) {
+        messages(completion: { messages in
+            if messages.isEmpty {
+                completion(nil)
+            } else {
+                let message = messages.sorted(by: {
+                    $0.date < $1.date
+                }).last
+                completion(message)
+            }
+        })
     }
     
     private enum CodingKeys: String, CodingKey {

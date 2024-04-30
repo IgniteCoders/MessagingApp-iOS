@@ -30,6 +30,8 @@
 		6CCE1E6C2BCFE02300A2A4E8 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6CCE1E6B2BCFE02300A2A4E8 /* Base */; };
 		6CE59A682BDA3B0100C9282B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE59A672BDA3B0100C9282B /* SettingsViewController.swift */; };
 		6CE59A6A2BDA802800C9282B /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE59A692BDA802800C9282B /* UIImageViewExtension.swift */; };
+		6CED0A7D2BE0E5D3003CE9D9 /* NewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CED0A7C2BE0E5D3003CE9D9 /* NewChatViewController.swift */; };
+		6CED0A7F2BE0F8D5003CE9D9 /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CED0A7E2BE0F8D5003CE9D9 /* ContactViewCell.swift */; };
 		6CF2DB522BD7B188007EA6CF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2DB512BD7B188007EA6CF /* ProfileViewController.swift */; };
 		6CF2DB552BD7B320007EA6CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2DB542BD7B320007EA6CF /* User.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,8 @@
 		6CCE1E6D2BCFE02300A2A4E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE59A672BDA3B0100C9282B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6CE59A692BDA802800C9282B /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		6CED0A7C2BE0E5D3003CE9D9 /* NewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewController.swift; sourceTree = "<group>"; };
+		6CED0A7E2BE0F8D5003CE9D9 /* ContactViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewCell.swift; sourceTree = "<group>"; };
 		6CF2DB512BD7B188007EA6CF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6CF2DB542BD7B320007EA6CF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7777DA121382A1B71A057C27 /* Pods_LoginApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoginApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +87,7 @@
 			children = (
 				6C2DC63D2BDBAA4D00B3F482 /* ChatViewCell.swift */,
 				6C2DC6412BDBCF1500B3F482 /* MessageViewCell.swift */,
+				6CED0A7E2BE0F8D5003CE9D9 /* ContactViewCell.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 				6CF2DB512BD7B188007EA6CF /* ProfileViewController.swift */,
 				6CE59A672BDA3B0100C9282B /* SettingsViewController.swift */,
 				6C2DC6382BDBA95700B3F482 /* ChatViewController.swift */,
+				6CED0A7C2BE0E5D3003CE9D9 /* NewChatViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -295,11 +301,13 @@
 			files = (
 				6C2DC6422BDBCF1500B3F482 /* MessageViewCell.swift in Sources */,
 				6CBB3E9B2BD27D5700755A68 /* SignUpViewController.swift in Sources */,
+				6CED0A7F2BE0F8D5003CE9D9 /* ContactViewCell.swift in Sources */,
 				6CCE1E642BCFE02200A2A4E8 /* LoginViewController.swift in Sources */,
 				6CF2DB522BD7B188007EA6CF /* ProfileViewController.swift in Sources */,
 				6C2DC6402BDBACE500B3F482 /* Message.swift in Sources */,
 				6CCB1D722BD665AF005096BB /* LoginManager.swift in Sources */,
 				6CCE1E602BCFE02200A2A4E8 /* AppDelegate.swift in Sources */,
+				6CED0A7D2BE0E5D3003CE9D9 /* NewChatViewController.swift in Sources */,
 				6CCB1D742BD68617005096BB /* VerifyEmailViewController.swift in Sources */,
 				6CBB3E9E2BD2843100755A68 /* RootViewController.swift in Sources */,
 				6CCE1E622BCFE02200A2A4E8 /* SceneDelegate.swift in Sources */,
