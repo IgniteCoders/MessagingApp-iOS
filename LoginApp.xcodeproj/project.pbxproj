@@ -13,6 +13,8 @@
 		6C2DC63E2BDBAA4D00B3F482 /* ChatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DC63D2BDBAA4D00B3F482 /* ChatViewCell.swift */; };
 		6C2DC6402BDBACE500B3F482 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DC63F2BDBACE500B3F482 /* Message.swift */; };
 		6C2DC6422BDBCF1500B3F482 /* MessageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2DC6412BDBCF1500B3F482 /* MessageViewCell.swift */; };
+		6C71EB822BE8BAB600DD0D49 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71EB812BE8BAB600DD0D49 /* ChatUser.swift */; };
+		6C71EB842BE8E3B800DD0D49 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71EB832BE8E3B800DD0D49 /* DataManager.swift */; };
 		6CB5522B2BD1129600363D6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CB5522A2BD1129600363D6A /* GoogleService-Info.plist */; };
 		6CB5522D2BD125D300363D6A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5522C2BD125D300363D6A /* HomeViewController.swift */; };
 		6CB552302BD1399B00363D6A /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5522F2BD1399B00363D6A /* SessionManager.swift */; };
@@ -42,6 +44,8 @@
 		6C2DC63D2BDBAA4D00B3F482 /* ChatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewCell.swift; sourceTree = "<group>"; };
 		6C2DC63F2BDBACE500B3F482 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		6C2DC6412BDBCF1500B3F482 /* MessageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewCell.swift; sourceTree = "<group>"; };
+		6C71EB812BE8BAB600DD0D49 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
+		6C71EB832BE8E3B800DD0D49 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		6CB5522A2BD1129600363D6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CB5522C2BD125D300363D6A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6CB5522F2BD1399B00363D6A /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				6CF2DB542BD7B320007EA6CF /* User.swift */,
 				6C2DC63A2BDBA9D200B3F482 /* Chat.swift */,
 				6C2DC63F2BDBACE500B3F482 /* Message.swift */,
+				6C71EB812BE8BAB600DD0D49 /* ChatUser.swift */,
+				6C71EB832BE8E3B800DD0D49 /* DataManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -309,6 +315,7 @@
 				6CCE1E602BCFE02200A2A4E8 /* AppDelegate.swift in Sources */,
 				6CED0A7D2BE0E5D3003CE9D9 /* NewChatViewController.swift in Sources */,
 				6CCB1D742BD68617005096BB /* VerifyEmailViewController.swift in Sources */,
+				6C71EB822BE8BAB600DD0D49 /* ChatUser.swift in Sources */,
 				6CBB3E9E2BD2843100755A68 /* RootViewController.swift in Sources */,
 				6CCE1E622BCFE02200A2A4E8 /* SceneDelegate.swift in Sources */,
 				6C2DC63E2BDBAA4D00B3F482 /* ChatViewCell.swift in Sources */,
@@ -316,6 +323,7 @@
 				6CBCE5482BDF83F60059DD91 /* StringExtension.swift in Sources */,
 				6CB5522D2BD125D300363D6A /* HomeViewController.swift in Sources */,
 				6CBCE5462BDF7EF90059DD91 /* UIViewExtension.swift in Sources */,
+				6C71EB842BE8E3B800DD0D49 /* DataManager.swift in Sources */,
 				6C2DC6392BDBA95700B3F482 /* ChatViewController.swift in Sources */,
 				6CF2DB552BD7B320007EA6CF /* User.swift in Sources */,
 				6CE59A6A2BDA802800C9282B /* UIImageViewExtension.swift in Sources */,

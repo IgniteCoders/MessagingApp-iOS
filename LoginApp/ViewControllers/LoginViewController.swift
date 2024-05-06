@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseCore
 import GoogleSignIn
-import FirebaseFirestoreInternal
+import FirebaseFirestore
 
 class LoginViewController: UIViewController {
     

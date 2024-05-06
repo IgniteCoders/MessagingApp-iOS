@@ -7,7 +7,6 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseFirestore
 
 class NewChatViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
     
@@ -15,6 +14,7 @@ class NewChatViewController: UIViewController, UISearchBarDelegate, UITableViewD
     
     var originalList: [User] = []
     var list: [User] = []
+    // Lambda function to return selected user
     var didSelectUser: ((User) -> Void)? = nil
     
     // MARK: Outlets
@@ -50,21 +50,14 @@ class NewChatViewController: UIViewController, UISearchBarDelegate, UITableViewD
         let cell: ContactViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ContactViewCell
         
         cell.render(user: item)
-        //cell.titleLabel.text = item.name
-        //cell.subtitleLabel.text = item.dates
-        //cell.signImageView.image = item.image
         
         return cell
     }
     
-    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
-    }*/
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        didSelectUser!(list[indexPath.row])
         dismiss(animated: true)
+        didSelectUser!(list[indexPath.row])
     }
     
     // MARK: SearchBar delegate
@@ -92,43 +85,17 @@ class NewChatViewController: UIViewController, UISearchBarDelegate, UITableViewD
     // MARK: Data
     
     func fetchUsers() {
-        let userID = Auth.auth().currentUser!.uid
-        
-        let db = Firestore.firestore()
-        
-        var users = [User]()
         Task {
-            do {
-                let querySnapshot = try await db.collection("Users").getDocuments()
-                
-                for document in querySnapshot.documents {
-                    var user = try document.data(as: User.self)
-                    users.append(user)
-                }
-                
-                originalList = users
-                list = originalList
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("Error reading chats: \(error)")
+            originalList = await DataManager.getUsers()
+            list = originalList
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    
+    // MARK: Actions
     
     @IBAction func cancel(_ sender: UIStoryboardSegue) {
         self.dismiss(animated: true)

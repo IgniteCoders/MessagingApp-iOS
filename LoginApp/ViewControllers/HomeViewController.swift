@@ -14,6 +14,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: Properties
     
     var list: [Chat] = []
+    var newChatId: String? = nil
+    
+    var listener: ListenerRegistration? = nil
     
     // MARK: Outlets
     
@@ -30,7 +33,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchChats()
+        //fetchChats()
+        
+        listener = DataManager.getChatsListener(completion: { [unowned self] chats in
+            self.list = chats
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        listener?.remove()
     }
     
     // MARK: TableView DataSource & Delegate
@@ -45,16 +60,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell: ChatViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ChatViewCell
         
         cell.render(chat: item)
-        //cell.titleLabel.text = item.name
-        //cell.subtitleLabel.text = item.dates
-        //cell.signImageView.image = item.image
         
         return cell
     }
-    
-    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
-    }*/
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(list[indexPath.row])
@@ -64,27 +72,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: Data
     
     func fetchChats() {
-        let userID = Auth.auth().currentUser!.uid
-        
-        let db = Firestore.firestore()
-        
-        var chats = [Chat]()
         Task {
-            do {
-                let querySnapshot = try await db.collection("Chats").getDocuments()
-                
-                for document in querySnapshot.documents {
-                    var chat = try document.data(as: Chat.self)
-                    chats.append(chat)
-                }
-                
-                list = chats
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("Error reading chats: \(error)")
+            list = await DataManager.getChats()
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
     }
@@ -96,22 +88,50 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let navigationViewController: UINavigationController = segue.destination as! UINavigationController
             let viewController: NewChatViewController = navigationViewController.topViewController as! NewChatViewController
             
-            viewController.didSelectUser = { user in
-                print(user)
-                
-                
+            viewController.didSelectUser = { [unowned self] user in
+                self.didSelectUser(user: user)
             }
         } else {
-            guard let indexPath = tableView.indexPathForSelectedRow else {
-                print("No chat selected")
-                return
+            var chat: Chat? = nil
+            if (newChatId != nil) {
+                chat = list.first(where: { chat in
+                    chat.id == newChatId
+                })
+                newChatId = nil
+            } else {
+                guard let indexPath = tableView.indexPathForSelectedRow else {
+                    print("No chat selected")
+                    return
+                }
+                
+                chat = list[indexPath.row]
             }
-            
-            let chat = list[indexPath.row]
             
             let viewController: ChatViewController = segue.destination as! ChatViewController
             
             viewController.chat = chat
+        }
+    }
+    
+    func didSelectUser(user: User) {
+        
+        let exist = self.list.first { chat in
+            chat.participants!.contains(where: { u in
+                u.id == user.id
+            })
+        }
+        if exist != nil {
+            self.newChatId = exist?.id
+            self.performSegue(withIdentifier: "chat", sender: self)
+        } else {
+            Task {
+                guard let chat = await DataManager.createChat(withUser: user) else {
+                    return
+                }
+                //list.append(chat)
+                self.newChatId = chat.id
+                self.performSegue(withIdentifier: "chat", sender: self)
+            }
         }
     }
 }

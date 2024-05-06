@@ -498,7 +498,7 @@
                                             <outlet property="profileImageView" destination="Epf-h6-Tz1" id="TyZ-L4-cja"/>
                                             <outlet property="subtitleLabel" destination="Rcm-iO-Pt6" id="HCy-C1-LCa"/>
                                             <outlet property="titleLabel" destination="z0V-L0-GTH" id="Ign-8V-JHs"/>
-                                            <segue destination="a76-5X-iQE" kind="show" id="xGQ-8I-4vB"/>
+                                            <segue destination="a76-5X-iQE" kind="show" identifier="chat" id="xGQ-8I-4vB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

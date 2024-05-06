@@ -44,15 +44,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageTextView.roundCorners(radius: 5)
         messageTextView.delegate = self
         
-        self.navigationItem.title = chat?.name
-        chat!.users { users in
-            let users = users.filter { user in
-                user.id != Auth.auth().currentUser?.uid
-            }
-            let profileImage = users.first?.profileImageUrl
-            if profileImage != nil && !profileImage!.isEmpty {
-                self.profileImageView.loadFrom(url: profileImage!)
-            }
+        let user = chat!.getOtherUser()
+        self.navigationItem.title = user.fullName()
+        let profileImage = user.profileImageUrl
+        if profileImage != nil && !profileImage!.isEmpty {
+            self.profileImageView.loadFrom(url: profileImage!)
         }
         
         //fetchMessages()
@@ -61,32 +57,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let db = Firestore.firestore()
-        listener = db.collection("Messages").whereField("chatId", isEqualTo: chat!.id).order(by: "date")
-            .addSnapshotListener { querySnapshot, error in
-                guard let documents = querySnapshot?.documents else {
-                    print("Error fetching documents: \(error!)")
-                    return
-                }
-                
-                do {
-                    self.list = []
-                    for document in documents {
-                        let message = try document.data(as: Message.self)
-                        self.list.append(message)
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        if (self.list.count > 0) {
-                            let lastIndexPath = IndexPath(item:self.list.count - 1, section: 0)
-                            self.tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: false)
-                        }
-                    }
-                } catch {
-                    print("Error reading messages: \(error)")
+        listener = DataManager.getMessagesListener(byChatId: chat!.id, completion: { [unowned self] messages in
+            self.list = messages
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                if (self.list.count > 0) {
+                    let lastIndexPath = IndexPath(item:self.list.count - 1, section: 0)
+                    self.tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: false)
                 }
             }
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -110,10 +90,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         cell.render(message: item)
-        //cell.contentView.transform = CGAffineTransformMakeScale (1, -1);
-        //cell.titleLabel.text = item.name
-        //cell.subtitleLabel.text = item.dates
-        //cell.signImageView.image = item.image
         
         return cell
     }
@@ -169,25 +145,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Data
     
     func fetchMessages() {
-        let db = Firestore.firestore()
-        
-        var messages = [Message]()
         Task {
-            do {
-                let querySnapshot = try await db.collection("Messages").whereField("chatId", isEqualTo: chat!.id).order(by: "date").getDocuments()
-                
-                for document in querySnapshot.documents {
-                    let message = try document.data(as: Message.self)
-                    messages.append(message)
+            list = await DataManager.getMessages(byChatId: chat!.id)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                if (self.list.count > 0) {
+                    let lastIndexPath = IndexPath(item:self.list.count - 1, section: 0)
+                    self.tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: false)
                 }
-                
-                list = messages
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("Error reading messages: \(error)")
             }
         }
     }
@@ -199,14 +165,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let message = Message(message: messageTextView.text!, date: Date.now.timeIntervalSince1970, senderId: userID, chatId: chat!.id)
         
-        let db = Firestore.firestore()
+        DataManager.createMessage(message)
         
-        do {
-            try db.collection("Messages").addDocument(from: message)
-            messageTextView.text = ""
-            textViewDidChange(messageTextView)
-        } catch let error {
-            print("Error writing user to Firestore: \(error)")
-        }
+        messageTextView.text = ""
+        textViewDidChange(messageTextView)
     }
 }
