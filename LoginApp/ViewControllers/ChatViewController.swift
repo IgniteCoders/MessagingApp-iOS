@@ -98,7 +98,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let item = list[indexPath.row]
         
         // height + margin + dateLabel.height
-        return item.message.sizeWithFont(font: UIFont.systemFont(ofSize: 17), forWidth: 228).height + 32 + 20
+        return item.message.sizeWithFont(font: UIFont.systemFont(ofSize: 17), forWidth: 228).height + 32 + 22
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

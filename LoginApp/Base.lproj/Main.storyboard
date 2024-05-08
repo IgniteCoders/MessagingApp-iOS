@@ -186,6 +186,30 @@
             </objects>
             <point key="canvasLocation" x="1066.4122137404579" y="3.5211267605633805"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ySL-zJ-yAt">
+            <objects>
+                <viewController id="4cU-da-N2S" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ife-CO-V5O">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ofh-a8-r19">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Política de privacidad" id="QcA-Uw-MRw"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LZh-nE-m1U"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KCO-ZK-CoY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="-761"/>
+        </scene>
         <!--Registro-->
         <scene sceneID="cci-Yc-wVz">
             <objects>
@@ -312,6 +336,15 @@
                                             <action selector="signUpButton:" destination="f0E-HA-7g7" eventType="touchUpInside" id="k7Y-wW-aFf"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Al hacer click en &quot;Crear cuenta&quot;, confirmas haber aceptado nuestras condiciones de uso y política de privacidad." translatesAutoresizingMaskIntoConstraints="NO" id="VkR-W6-ZU6">
+                                        <rect key="frame" x="8" y="445" width="377" height="51"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -328,6 +361,7 @@
                     <navigationItem key="navigationItem" title="Registro" id="Fdd-db-wES"/>
                     <connections>
                         <outlet property="birthdayDatePicker" destination="Hrl-JT-5vP" id="s0j-hE-11d"/>
+                        <outlet property="conditionsTextView" destination="VkR-W6-ZU6" id="JV4-8n-gkn"/>
                         <outlet property="firstNameTextField" destination="5UP-7b-Nc9" id="Hdu-HS-TQb"/>
                         <outlet property="genderImageView" destination="Sfg-jq-kSu" id="07a-Sr-VvW"/>
                         <outlet property="genderSegmentedControl" destination="ZDl-5Y-QYe" id="2cV-oB-OL4"/>
@@ -336,6 +370,7 @@
                         <outlet property="repeatPasswordTextField" destination="Bdc-ui-8YO" id="7Li-AX-AMG"/>
                         <outlet property="usernameTextField" destination="VZ9-yw-zgv" id="vO0-4K-305"/>
                         <segue destination="MF5-kB-W1x" kind="show" identifier="navigateToEmailVerification" id="fFu-k6-9fL"/>
+                        <segue destination="4cU-da-N2S" kind="presentation" identifier="link" id="rU9-ga-srO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYS-Fo-RP8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -973,7 +1008,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Xtc-ri-fOw"/>
+        <segue reference="fFu-k6-9fL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowshape.left.fill" catalog="system" width="128" height="104"/>

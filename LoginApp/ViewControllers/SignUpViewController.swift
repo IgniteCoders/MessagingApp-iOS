@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextViewDelegate {
     
     // MARK: Outlets
     
@@ -21,6 +21,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var genderSegmentedControl: UISegmentedControl!
     @IBOutlet weak var genderImageView: UIImageView!
     @IBOutlet weak var birthdayDatePicker: UIDatePicker!
+    @IBOutlet weak var conditionsTextView: UITextView!
     
     // MARK: Lifecycle
 
@@ -28,6 +29,25 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        conditionsTextView.delegate = self
+        let attributedText = NSMutableAttributedString(string: conditionsTextView.text)
+        var linkRange = attributedText.mutableString.range(of: "política de privacidad")
+        attributedText.addAttribute(.link, value: "privacy-policy", range: linkRange)
+        linkRange = attributedText.mutableString.range(of: "condiciones de uso")
+        attributedText.addAttribute(.link, value: "use-conditions", range: linkRange)
+        conditionsTextView.attributedText = attributedText
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        print(URL.absoluteString)
+        if (URL.absoluteString == "privacy-policy") {
+            // TODO: Abrir política de privacidad
+            performSegue(withIdentifier: "link", sender: self)
+        } else if (URL.absoluteString == "use-conditions") {
+            // TODO: Abrir condiciones de uso
+            performSegue(withIdentifier: "link", sender: self)
+        }
+        return false
     }
     
     // MARK: Actions

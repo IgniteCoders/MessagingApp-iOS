@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     func loadFrom(url: URL) {
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             if let data = try? Data(contentsOf: url) {
                 if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
@@ -26,7 +26,7 @@ extension UIImageView {
     }
     
     func loadFrom(url: String, completionHandler: @escaping (UIImage) -> Void) {
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             if let data = try? Data(contentsOf: URL(string: url)!) {
                 if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
